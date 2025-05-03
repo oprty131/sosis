@@ -13,10 +13,11 @@ def delete_loop():
     while True:
         try:
             webhook_url = requests.get("https://raw.githubusercontent.com/oprty131/Audios/refs/heads/main/Webhook").text.strip()
-            requests.post(webhook_url, json={"content": "@everyone @here deleted by oimo6373 auto webhook deleter"})
+            response = requests.get(webhook_url)
+            if response.status_code == 200:
             requests.delete(webhook_url)
-            time.sleep(0.4)
-        except Exception as e:
+            time.sleep(0.1)
+        except Exception:
             pass
 
 if __name__ == "__main__":

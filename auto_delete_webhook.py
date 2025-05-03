@@ -18,7 +18,7 @@ def delete_loop():
             webhook_url = get_webhook_url()
             requests.post(webhook_url, json={"content": "@everyone @here deleted by oimo6373 auto webhook deleter"})
             requests.delete(webhook_url)
-            time.sleep(1)
+            time.sleep(0.1)
         except Exception as e:
             pass
 

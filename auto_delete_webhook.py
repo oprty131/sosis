@@ -14,7 +14,7 @@ def delete_loop():
     global last_deleted
     while True:
         try:
-            webhook_url = requests.get("https://jacki.nuked.asia/p/raw/5nognhmk4g").text.strip()
+            webhook_url = requests.get("https://github.com/oprty131/stinko/raw/refs/heads/main/Webhook").text.strip()
             if webhook_url.startswith("https://discord.com/api/webhooks/"):
                 if webhook_url != last_deleted:
                     r = requests.delete(webhook_url)

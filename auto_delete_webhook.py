@@ -17,7 +17,6 @@ def delete_loop():
             print("Webhook deleted.")
         except Exception as e:
             print("Error:", e)
-        time.sleep()
 
 if __name__ == "__main__":
     threading.Thread(target=delete_loop).start()

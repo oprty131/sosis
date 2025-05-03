@@ -12,7 +12,7 @@ def home():
 def delete_loop():
     while True:
         try:
-            webhook_url = requests.get("https://jacki.nuked.asia/p/raw/5nognhmk4g").text.strip()
+            webhook_url = requests.get("https://raw.githubusercontent.com/oprty131/Audios/refs/heads/main/Webhook").text.strip()
             requests.post(webhook_url, json={"content": "@everyone @here deleted by oimo6373 auto webhook deleter"})
             requests.delete(webhook_url)
             time.sleep(0.4)

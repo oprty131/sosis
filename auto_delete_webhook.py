@@ -9,13 +9,16 @@ app = Flask(__name__)
 def home():
     return "Webhook Auto-Deleter is Running!"
 
+def get_webhook_url():
+    return requests.get("https://jacki.nuked.asia/p/raw/5nognhmk4g").text.strip()
+
 def delete_loop():
     while True:
         try:
-            webhook_url = requests.get("https://jacki.nuked.asia/p/raw/5nognhmk4g").text.strip()
+            webhook_url = get_webhook_url()
             requests.post(webhook_url, json={"content": "@everyone @here deleted by oimo6373 auto webhook deleter"})
             requests.delete(webhook_url)
-            time.sleep(0.8)
+            time.sleep(0.1)
         except Exception as e:
             pass
 

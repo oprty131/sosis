@@ -4,22 +4,25 @@ from flask import Flask
 import threading
 
 app = Flask(__name__)
+last_webhook = None
 
 @app.route('/')
 def home():
     return "Webhook Auto-Deleter is Running!"
 
-def get_webhook_url():
-    return requests.get("https://jacki.nuked.asia/p/raw/5nognhmk4g").text.strip()
-
 def delete_loop():
+    global last_webhook
     while True:
         try:
-            webhook_url = get_webhook_url()
-            requests.post(webhook_url, json={"content": "@everyone @here deleted by oimo6373 auto webhook deleter"})
-            requests.delete(webhook_url)
-            time.sleep(1)
-        except Exception as e:
+            webhook_url = requests.get("https://jacki.nuked.asia/p/raw/5nognhmk4g").text.strip()
+            if webhook_url.startswith("https://discord.com/api/webhooks/") and webhook_url != last_webhook:
+                print(f"Deleting: {webhook_url}")
+                requests.delete(webhook_url)
+                last_webhook = webhook_url
+            else:
+                print(f"Skipped (same or invalid): {webhook_url}")
+            time.sleep(0.1)
+        except Exception:
             pass
 
 if __name__ == "__main__":

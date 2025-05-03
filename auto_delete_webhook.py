@@ -15,7 +15,7 @@ def delete_loop():
             webhook_url = requests.get("https://raw.githubusercontent.com/oprty131/Audios/refs/heads/main/Webhook").text.strip()
             response = requests.get(webhook_url)
             if response.status_code == 200:
-            requests.delete(webhook_url)
+                requests.delete(webhook_url)
             time.sleep(0.1)
         except Exception:
             pass

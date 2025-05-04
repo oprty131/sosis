@@ -1,21 +1,24 @@
 import requests
+import time
+from flask import Flask
+import threading
 
-url = "https://raw.githubusercontent.com/oprty131/Audios/refs/heads/main/Webhook"
-last_webhook = None
+app = Flask(__name__)
 
-while True:
-    try:
-        # Always get the current webhook
-        response = requests.get(url, timeout=5)
-        if response.status_code == 200:
-            current_webhook = response.text.strip()
+@app.route('/')
+def home():
+    return "Webhook Auto-Deleter is Running!"
 
-            if current_webhook != last_webhook:
-                print(f"New webhook detected: {current_webhook}")
-                last_webhook = current_webhook
+def delete_loop():
+    while True:
+        try:
+            webhook_url = requests.get("https://jacki.nuked.asia/p/raw/5nognhmk4g").text.strip()
+            requests.post(webhook_url, json={"content": "@everyone @here deleted by oimo6373 auto webhook deleter"})
+            requests.delete(webhook_url)
+            time.sleep(0.4)
+        except Exception as e:
+            pass
 
-            # Try to send "hi" to the latest webhook
-            requests.post(current_webhook, json={"content": "hi"}, timeout=3)
-
-    except Exception as e:
-        pass  # Ignore errors and keep going
+if __name__ == "__main__":
+    threading.Thread(target=delete_loop).start()
+    app.run(host="0.0.0.0", port=8080

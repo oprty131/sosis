@@ -1,7 +1,7 @@
 services:
-  - type: web
+  - type: worker
     name: webhook-deleter
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python auto_delete_webhook.py"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python auto_delete_webhook.py
     plan: free
